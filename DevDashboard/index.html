@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+/**
+ *  Project: DevDashboard
+ *  Goal: Provide a dashboard for developing with different widgets integrated, like little tools for string stats, translater, API fetcher, ...
+ *  File: index.html: main file with all widgets
+ *  Techno: no pure JS, only VueJS
+ *  Author: Samuel Roland
+ *  Creation date: 01.01.2020
+ */
+
+ Ideas to implement:
+ - Stats on a given string (how many chars, the string with a limit of chars applied, search a substring and get occurrences,
+ - Fetch first paragraph of a wikipedia page to get a quick definition of a word (propose different solutions if not found directly)
+ - Fetch DeepL website to get the translations of a word in french translated to english
+ - Fetch HackerNews API on hn.algolia.com/ like https://hn.algolia.com/api/v1/search?query=markdown to find the last article that get more than x points and that are related to at least of subject of a list
+ - Fetch Github API for given repos (repos that your have starred for ex.) to get the last created issues with labels "good first issue"
+ - Fetch PHP, VueJS, Laravel, (or others languages) official documentation, search a function, class, ... display personal notes in MD from a file.
+-->
+<head>
+    <meta charset="UTF-8">
+    <title>DevDashboard</title>
+    <style>
+        body {
+            font-family: "Consolas", "Verdana", "sans-serif";
+        }
+    </style>
+</head>
+<body>
+<h1 style="display: inline">DevDashboard</h1> <em>v1.0</em> by <strong>Samuel Roland</strong>
+<h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways you didn't thought.</h3>
+<hr>
+<div class="divStrings">
+    <h2>All about strings</h2>
+    <label for="txtarea"></label><textarea id="txtarea" cols="80" rows="5"
+                                           placeholder="Paste your string here..."></textarea>
+    <h3 id="charsrestants">Stats on the string</h3>
+    <ul>
+        <li>X chars</li>
+        <li><input type="text" placeholder="search a substring"> found X times</li>
+    </ul>
+</div>
+<hr>
+<div>
+    <h2>Wikipedia Search</h2>
+    <p>Pick a word:<input type="text" placeholder="search a substring"><button>Search it!</button></p>
+    <h3>Result:</h3>
+</div>
+</body>
+
+</html>
