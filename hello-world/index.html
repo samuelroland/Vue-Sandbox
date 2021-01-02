@@ -21,10 +21,20 @@
     <script src="https://unpkg.com/vue@next">//Import Vue here !</script>
 </head>
 <body>
+<div id="msg">
+    {{ message }}
+</div>
 
 <script>
     /*Vue code here*/
-
+    const Message = {
+        data() {
+            return {
+                message: "hello world !"
+            }
+        }
+    }
+    Vue.createApp(Message).mount('#msg')
 </script>
 </body>
 </html>
