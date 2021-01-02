@@ -17,12 +17,21 @@
             user-select: none;
             overflow-x: auto;
         }
+
+        .bgred {
+            background-color: red;
+        }
+
+        .bgorange {
+            background-color: #ffb700;
+        }
     </style>
     <script src="https://unpkg.com/vue@next">//Import Vue here !</script>
 </head>
 <body>
 <div id="msg">
-    Simon says {{ message }}
+    <p v-bind:class="cssForMsg">Simon says {{ message }}</p>
+
 </div>
 
 <script>
@@ -30,6 +39,7 @@
     const Message = {
         data() {
             return {
+                cssForMsg: "bgred",
                 message: "hello world !"
             }
         },
@@ -37,6 +47,9 @@
             setInterval(() => {
                 this.message = this.message + " hey!"
             }, 1000)
+            setInterval(() => {
+                this.cssForMsg = "bgorange"
+            }, 2000)
         }
     }
     Vue.createApp(Message).mount('#msg')
