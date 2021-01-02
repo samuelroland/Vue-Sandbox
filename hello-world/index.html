@@ -22,7 +22,7 @@
 </head>
 <body>
 <div id="msg">
-    {{ message }}
+    Simon says {{ message }}
 </div>
 
 <script>
@@ -32,6 +32,11 @@
             return {
                 message: "hello world !"
             }
+        },
+        mounted() {
+            setInterval(() => {
+                this.message = this.message + " hey!"
+            }, 1000)
         }
     }
     Vue.createApp(Message).mount('#msg')
