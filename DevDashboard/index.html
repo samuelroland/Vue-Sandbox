@@ -83,50 +83,51 @@
 -->
 <body>
 <div id="bodyApp">
-<h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v{{ appVersion }}</em> <br>by <strong>{{ authorFullname }}</strong>
-<br>
-<br>
-<h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways you
-    didn't thought.</h3>
-<p>Developed with the javascript framework <a href="vuejs.org">VueJS</a> 3...</p>
-<hr>
-<div class="flexdiv">
+    <h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v{{ appVersion }}</em> <br>by
+    <strong>{{ authorFullname }}</strong>
+    <br>
+    <br>
+    <h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways you
+        didn't thought.</h3>
+    <p>Developed with the javascript framework <a href="vuejs.org">VueJS</a> 3...</p>
+    <hr>
+    <div class="flexdiv">
 
 
-    <div class="divStrings divRectangle">
-        <h2>Strings stats</h2>
-        <label for="txtarea"></label><textarea id="txtarea" cols="80" rows="5"
-                                               placeholder="Paste your string here...">
+        <div class="divStrings divRectangle">
+            <h2>Strings stats</h2>
+            <label for="txtarea"></label><textarea id="txtarea" cols="80" rows="5"
+                                                   placeholder="Paste your string here...">
 m ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates.
         Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
-        <ul>
-            <li>X chars</li>
-            <li>X words</li>
-            <li>X words</li>
-            <li>Most used word is: X</li>
-            <li><input type="text" placeholder="set a max"> chars at max. <span
-                    class="txtgreen">Respected! Exceeded !</span></li>
-            <li><input type="text" placeholder="search a substring"> found X times</li>
-            <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex">
-                matched X
-                times
-            </li>
-        </ul>
-    </div>
+            <ul>
+                <li>X chars</li>
+                <li>X words</li>
+                <li>X words</li>
+                <li>Most used word is: X</li>
+                <li><input type="text" placeholder="set a max"> chars at max. <span
+                        class="txtgreen">Respected! Exceeded !</span></li>
+                <li><input type="text" placeholder="search a substring"> found X times</li>
+                <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex">
+                    matched X
+                    times
+                </li>
+            </ul>
+        </div>
 
-    <div class="divWikipedia divRectangle">
-        <h2>Wikipedia Search</h2>
-        <p><input type="text" placeholder="Pick a word">
-            <button>Search it!</button>
-            <button>Go on the page X</button>
-        </p>
-        <h3>Result:</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo
-            sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam!
-        </p>
+        <div class="divWikipedia divRectangle">
+            <h2>Wikipedia Search</h2>
+            <p><input type="text" placeholder="Pick a word">
+                <button>Search it!</button>
+                <button>Go on the page X</button>
+            </p>
+            <h3>Result:</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo
+                sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam!
+            </p>
+        </div>
     </div>
-</div>
 </div>
 <script>
     /*Vue code here*/
