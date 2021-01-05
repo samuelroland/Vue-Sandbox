@@ -38,28 +38,91 @@
     <style>
         body {
             font-family: "Consolas", "Verdana", "sans-serif";
+            background-color: #fff9be;
+        }
+
+        .divRectangle {
+            border: 2px #25b3e5 solid;
+            background-color: #d5eeff;
+            padding: 10px;
+            border-radius: 5px;
+            width: min-content;
+            max-width: 50%;
+            height: 350px;
+            margin: 3px;
+        }
+
+        .divWikipedia {
+            min-width: 600px;
+            min-height: 300px;
+        }
+
+        .hTitle {
+            font-size: 2.5rem;
+        }
+
+        h2, h3, ul {
+            margin-top: 3px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-family: Verdana;
+        }
+
+        textarea, input {
+            border-radius: 5px;
+            max-width: available;
+        }
+
+        .flexdiv {
+            display: flex;
         }
     </style>
 </head>
 <body>
-<h1 style="display: inline">DevDashboard</h1> <em>v1.0</em> by <strong>Samuel Roland</strong>
-<h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways you didn't thought.</h3>
+<h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v1.0</em> <br>by <strong>Samuel Roland</strong>
+<br>
+<br>
+<h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways you
+    didn't thought.</h3>
+<p>Developed with the javascript framework <a href="vuejs.org">VueJS</a> 3...</p>
 <hr>
-<div class="divStrings">
-    <h2>All about strings</h2>
-    <label for="txtarea"></label><textarea id="txtarea" cols="80" rows="5"
-                                           placeholder="Paste your string here..."></textarea>
-    <h3 id="charsrestants">Stats on the string</h3>
-    <ul>
-        <li>X chars</li>
-        <li><input type="text" placeholder="search a substring"> found X times</li>
-    </ul>
-</div>
-<hr>
-<div>
-    <h2>Wikipedia Search</h2>
-    <p>Pick a word:<input type="text" placeholder="search a substring"><button>Search it!</button></p>
-    <h3>Result:</h3>
+<div class="flexdiv">
+
+
+    <div class="divStrings divRectangle">
+        <h2>Strings stats</h2>
+        <label for="txtarea"></label><textarea id="txtarea" cols="80" rows="5"
+                                               placeholder="Paste your string here...">
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
+        <ul>
+            <li>X chars</li>
+            <li>X words</li>
+            <li>X words</li>
+            <li>Most used word is: X</li>
+            <li><input type="text" placeholder="set a max"> chars at max. <span
+                    class="txtgreen">Respected! Exceeded !</span></li>
+            <li><input type="text" placeholder="search a substring"> found X times</li>
+            <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex"> matched X
+                times
+            </li>
+        </ul>
+    </div>
+
+    <div class="divWikipedia divRectangle">
+        <h2>Wikipedia Search</h2>
+        <p><input type="text" placeholder="Pick a word">
+            <button>Search it!</button>
+            <button>Go on the page X</button>
+        </p>
+        <h3>Result:</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione
+            sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam,
+            repudiandae!
+        </p>
+    </div>
 </div>
 </body>
 
