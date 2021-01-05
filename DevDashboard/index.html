@@ -47,6 +47,7 @@
             display: flex;
         }
     </style>
+    <script src="https://unpkg.com/vue@next"></script>
 </head>
 <!--
 /**
@@ -81,7 +82,8 @@
  - Fetch API of any type, set headers, display the response, link builder with a lot of values in the querystring
 -->
 <body>
-<h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v1.0</em> <br>by <strong>Samuel Roland</strong>
+<div id="bodyApp">
+<h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v{{ appVersion }}</em> <br>by <strong>{{ authorFullname }}</strong>
 <br>
 <br>
 <h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways you
@@ -95,7 +97,8 @@
         <h2>Strings stats</h2>
         <label for="txtarea"></label><textarea id="txtarea" cols="80" rows="5"
                                                placeholder="Paste your string here...">
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
+m ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates.
+        Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
         <ul>
             <li>X chars</li>
             <li>X words</li>
@@ -104,7 +107,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
             <li><input type="text" placeholder="set a max"> chars at max. <span
                     class="txtgreen">Respected! Exceeded !</span></li>
             <li><input type="text" placeholder="search a substring"> found X times</li>
-            <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex"> matched X
+            <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex">
+                matched X
                 times
             </li>
         </ul>
@@ -118,12 +122,24 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
         </p>
         <h3>Result:</h3>
         <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione
-            sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam,
-            repudiandae!
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo
+            sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam!
         </p>
     </div>
 </div>
+</div>
+<script>
+    /*Vue code here*/
+    const DevD = {
+        data() {
+            return {
+                appVersion: "1.0",
+                authorFullname: "Samuel Roland",
+            }
+        }
+    }
+    Vue.createApp(DevD).mount('#bodyApp')
+</script>
 </body>
 
 </html>
