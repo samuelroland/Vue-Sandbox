@@ -30,7 +30,7 @@
 </head>
 <body>
 <div id="msg">
-    <p v-bind:class="cssForMsg">Simon says {{ message }}</p>
+    <p v-bind:class="cssForMsg" v-on:click="clickMsg">Simon says {{ message }}</p>
 
 </div>
 
@@ -50,6 +50,11 @@
             setInterval(() => {
                 this.cssForMsg = "bgorange"
             }, 2000)
+        },
+        methods: {
+            clickMsg() {
+                alert("You have clicked on the message...")
+            }
         }
     }
     Vue.createApp(Message).mount('#msg')
