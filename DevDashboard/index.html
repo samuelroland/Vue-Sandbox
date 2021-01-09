@@ -9,6 +9,15 @@
             background-color: #fff9be;
         }
 
+        #divWidgets {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .fullwidth {
+            width: 100%;
+        }
+
         .divRectangle {
             border: 2px #25b3e5 solid;
             background-color: #d5eeff;
@@ -18,9 +27,15 @@
             max-width: 50%;
             height: 350px;
             margin: 3px;
+            overflow: hidden;
         }
 
         .divWikipedia {
+            min-width: 600px;
+            min-height: 300px;
+        }
+
+        #divStringsStats {
             min-width: 600px;
             min-height: 300px;
         }
@@ -40,7 +55,7 @@
 
         textarea, input {
             border-radius: 5px;
-            max-width: available;
+            max-width: 100%;
         }
 
         .flexdiv {
@@ -85,27 +100,28 @@
 -->
 <body>
 <div id="bodyApp">
-    <h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v{{ appVersion }}</em> <br>by
-    <strong>{{ authorFullname }}</strong>
-    <br>
-    <br>
-    <h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways you
-        didn't thought.</h3>
-    <p>Developed with the javascript framework <a href="https://v3.vuejs.org/guide">VueJS</a> 3...</p>
-    <hr>
-    <div class="flexdiv">
+    <div id="divAppTitle">
+        <h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v{{ appVersion }}</em> <br>by
+        <strong>{{ authorFullname }}</strong>
+        <h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways
+            you
+            didn't thought.</h3>
+        <p>Developed with the javascript framework <a href="https://v3.vuejs.org/guide">VueJS</a> 3...</p>
+        <hr>
+    </div>
+    <div id="divWidgets">
 
-
-        <div class="divStrings divRectangle">
+        <div id="divStringsStats" class="divRectangle">
             <h2>Strings stats</h2>
-            <label for="txtarea"></label><textarea id="txtarea" cols="80" rows="5"
-                                                   placeholder="Paste your string here...">
-m ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates.
-        Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
+            <label for="txtarea"></label>
+            <textarea class="fullwidth" id="txtarea" rows="5"
+                      placeholder="Paste your string here..."
+                      v-model="content" v-on:input="calculateAllStats">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates.Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
             <ul>
-                <li>X chars</li>
-                <li>X words</li>
-                <li>X words</li>
+                <li>{{ totalChars }} chars</li>
+                <li>{{ totalWords }} words (only ' ' as separator)</li>
+                <li>{{ totalWordsAdvanced }} words advanced (separators: {{ separatorsListIfTotalWordsAdvanced }})</li>
                 <li>Most used word is: X</li>
                 <li><input type="text" placeholder="set a max"> chars at max. <span
                         class="txtgreen">Respected! Exceeded !</span></li>
@@ -124,8 +140,7 @@ m ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius exc
                 <button>Go on the page X</button>
             </p>
             <h3>Result:</h3>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo
                 sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam!
             </p>
         </div>
@@ -141,7 +156,59 @@ m ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius exc
             }
         }
     }
-    Vue.createApp(DevD).mount('#bodyApp')
+
+    //Widget strings stats
+    const widgStringsStats = {
+        data() {
+            return {
+                content: "",
+                totalChars: 0,
+                totalWords: 0,
+                totalWordsAdvanced: 0,
+                separatorsListIfTotalWordsAdvanced: "",
+                mostUsedWord: "",
+                maxCharsToCheck: 0,
+                substringToSearch: "",
+                nbTimesSubstringFound: 0,
+                chkRegexOnWords: true,
+                inpRegexOnWords: "",
+                nbMatchesForRegex: 0
+            }
+        },
+        methods: {
+            calculateAllStats() {
+                text = this.content
+                this.totalChars = text.length
+
+                //Calculate this.totalWords
+                //Thanks to: https://stackoverflow.com/questions/19313541/split-a-string-based-on-multiple-delimiters#answer-19313673
+                separators = [" "]
+                words = text.trim().split(new RegExp('[' + separators.join('') + ']', 'g'));
+                this.totalWords = words.filter(function (el) { //trim and split with spaces on the text
+                    return (el != "")   //keep item of the array only if not empty string
+                }).length
+
+                separators = [" ", "'", ".", "!", "\\?", ",", "\\s-\\s", "\\s_\\s", "\\s:\\s"]
+                console.log('(' + separators.join(')(') + ')')
+                words = text.trim().split(e = new RegExp("'[(' + separators.join(')(') + ')]', 'g'"));
+                console.log(e)
+                console.log('(' + separators.join(')(') + ')')
+                this.totalWordsAdvanced = words.filter(function (el) { //trim and split with spaces on the text
+                    return (el != "")   //keep item of the array only if not empty string
+                }).length
+                console.log(words.filter(function (el) { //trim and split with spaces on the text
+                    return (el != "")   //keep item of the array only if not empty string
+                }))
+                this.separatorsListIfTotalWordsAdvanced = '(\'' + separators.join('\', \'') + '\')'
+            }
+        },
+        mounted() {
+            this.calculateAllStats()
+        }
+    }
+    Vue.createApp(DevD).mount('#divAppTitle')
+    Vue.createApp(widgStringsStats).mount('#divStringsStats')
+
 </script>
 </body>
 
