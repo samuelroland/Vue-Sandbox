@@ -31,7 +31,7 @@
 <body>
 <div id="msg">
     <p v-bind:class="cssForMsg" v-on:click="clickMsg">Simon says {{ message }}</p>
-
+    <textarea rows="5" cols="100" v-model="message"></textarea>
 </div>
 
 <script>
@@ -45,7 +45,8 @@
         },
         mounted() {
             setInterval(() => {
-                this.message = this.message + " hey!"
+                this.message = this.message + " . "
+                console.log(this.message)
             }, 1000)
             setInterval(() => {
                 this.cssForMsg = "bgorange"
