@@ -31,7 +31,12 @@
 <body>
 <div id="msg">
     <p v-bind:class="cssForMsg" v-on:click="clickMsg">Simon says {{ message }}</p>
-    <textarea rows="5" cols="100" v-model="message"></textarea>
+    <textarea rows="5" cols="100" v-model="message" v-bind:title="message"></textarea><br>
+    <label for="chkError" v-bind:class="cssForErrorInfo" v-on:mouseover="cssForErrorInfoOnHover"
+           v-on:mouseout="cssForErrorInfoOnHover">Display error: </label><input id="chkError" type="checkbox"
+                                                                                 v-model="errorVisible">
+    <p class="bgred" v-if="errorVisible">There is an error :( ...</p>
+
 </div>
 
 <script>
@@ -39,20 +44,28 @@
     const Message = {
         data() {
             return {
-                cssForMsg: "bgred",
-                message: "hello world !"
+                cssForMsg: "",
+                cssForErrorInfo: "",
+                message: "hello world !",
+                errorVisible: false
             }
         },
         mounted() {
             setInterval(() => {
                 this.message = this.message + " . "
-                console.log(this.message)
             }, 1000)
             setInterval(() => {
                 this.cssForMsg = "bgorange"
             }, 2000)
         },
         methods: {
+            cssForErrorInfoOnHover() {
+                if (this.cssForErrorInfo == "") {
+                    this.cssForErrorInfo = 'bgorange'
+                } else {
+                    this.cssForErrorInfo = ""
+                }
+            },
             clickMsg() {
                 alert("You have clicked on the message...")
             }
