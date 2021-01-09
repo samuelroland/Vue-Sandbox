@@ -188,18 +188,15 @@
                     return (el != "")   //keep item of the array only if not empty string
                 }).length
 
-                separators = [" ", "'", ".", "!", "\\?", ",", "\\s-\\s", "\\s_\\s", "\\s:\\s"]
-                console.log('(' + separators.join(')(') + ')')
-                words = text.trim().split(e = new RegExp("'[(' + separators.join(')(') + ')]', 'g'"));
+                words = text.trim().split(e = new RegExp("[-_](?!\\w)|[-_](?<!\\w\\W)|[^\\w-_]"));  //split with "hard" regex to take all non words chars except - and _ if char before and after are words chars.
                 console.log(e)
-                console.log('(' + separators.join(')(') + ')')
                 this.totalWordsAdvanced = words.filter(function (el) { //trim and split with spaces on the text
                     return (el != "")   //keep item of the array only if not empty string
                 }).length
                 console.log(words.filter(function (el) { //trim and split with spaces on the text
                     return (el != "")   //keep item of the array only if not empty string
                 }))
-                this.separatorsListIfTotalWordsAdvanced = '(\'' + separators.join('\', \'') + '\')'
+                this.separatorsListIfTotalWordsAdvanced = 'all not words chars, except \'_\' and \'-\''
             }
         },
         mounted() {
