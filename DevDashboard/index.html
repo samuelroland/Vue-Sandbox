@@ -18,6 +18,10 @@
             width: 100%;
         }
 
+        .inputerror {
+            border: 2px double #ff7575;
+        }
+
         .divRectangle {
             border: 2px #25b3e5 solid;
             background-color: #d5eeff;
@@ -114,7 +118,7 @@
         <div id="divStringsStats" class="divRectangle">
             <h2>Strings stats</h2>
             <label for="txtarea"></label>
-            <textarea class="fullwidth" id="txtarea" rows="5"
+            <textarea v-bind:class="txtCssClasses" id="txtarea" rows="5"
                       placeholder="Paste your string here..."
                       v-model="content" v-on:input="calculateAllStats">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates.Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
@@ -123,8 +127,9 @@
                 <li>{{ totalWords }} words (only ' ' as separator)</li>
                 <li>{{ totalWordsAdvanced }} words advanced (separators: {{ separatorsListIfTotalWordsAdvanced }})</li>
                 <li>Most used word is: X</li>
-                <li><input type="text" placeholder="set a max" value="100" v-model="maxCharsToCheck"> chars at max. <span
-                        class="txtgreen">{{ maxCharsToCheckInfo }}</span></li>
+                <li><input type="text" placeholder="set a max" value="100" v-model="maxCharsToCheck"> chars at max.
+                    <span
+                            class="txtgreen">{{ maxCharsToCheckInfo }}</span></li>
                 <li><input type="text" placeholder="search a substring"> found X times</li>
                 <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex">
                     matched X
@@ -173,7 +178,10 @@
                 nbTimesSubstringFound: 0,
                 chkRegexOnWords: true,
                 inpRegexOnWords: "",
-                nbMatchesForRegex: 0
+                nbMatchesForRegex: 0,
+                //Css:
+                txtCssAddings: "",
+                txtCssClasses: "fullwidth " + this.txtCssAddings
             }
         },
         methods: {
@@ -199,9 +207,23 @@
                 //Check that content.length respect this.maxCharsToCheck
                 if (this.maxCharsToCheck >= this.content.length) {
                     this.maxCharsToCheckInfo = "Respected !"
+                    this.manageErrorCssOnTextarea(false)
                 } else {
                     this.maxCharsToCheckInfo = "Exceeded !"
+                    this.manageErrorCssOnTextarea(true)
                 }
+            },
+            //Display or hide error css on text area
+            manageErrorCssOnTextarea(display = true) {
+                if (display == true) {
+                    this.txtCssAddings = "inputerror"
+                } else {
+                    this.txtCssAddings = ""
+                }
+                this.loadTxtCssClasses()
+            },
+            loadTxtCssClasses() {   //load the txtCssClasses variable after modification of txtCssAddings
+                this.txtCssClasses = "fullwidth " + this.txtCssAddings
             }
         },
         mounted() {
