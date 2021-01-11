@@ -123,8 +123,8 @@
                 <li>{{ totalWords }} words (only ' ' as separator)</li>
                 <li>{{ totalWordsAdvanced }} words advanced (separators: {{ separatorsListIfTotalWordsAdvanced }})</li>
                 <li>Most used word is: X</li>
-                <li><input type="text" placeholder="set a max"> chars at max. <span
-                        class="txtgreen">Respected! Exceeded !</span></li>
+                <li><input type="text" placeholder="set a max" value="100" v-model="maxCharsToCheck"> chars at max. <span
+                        class="txtgreen">{{ maxCharsToCheckInfo }}</span></li>
                 <li><input type="text" placeholder="search a substring"> found X times</li>
                 <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex">
                     matched X
@@ -167,7 +167,8 @@
                 totalWordsAdvanced: 0,
                 separatorsListIfTotalWordsAdvanced: "",
                 mostUsedWord: "",
-                maxCharsToCheck: 0,
+                maxCharsToCheck: 100,
+                maxCharsToCheckInfo: "",    //result of the check
                 substringToSearch: "",
                 nbTimesSubstringFound: 0,
                 chkRegexOnWords: true,
@@ -187,16 +188,20 @@
                 this.totalWords = words.filter(function (el) { //trim and split with spaces on the text
                     return (el != "")   //keep item of the array only if not empty string
                 }).length
-
+                //Trim with all non words chars to count advanced words (more separators):
                 words = text.trim().split(e = new RegExp("[-_](?!\\w)|[-_](?<!\\w\\W)|[^\\w-_]"));  //split with "hard" regex to take all non words chars except - and _ if char before and after are words chars.
                 console.log(e)
-                this.totalWordsAdvanced = words.filter(function (el) { //trim and split with spaces on the text
+                this.totalWordsAdvanced = words.filter(function (el) { //filter and remove empty values
                     return (el != "")   //keep item of the array only if not empty string
                 }).length
-                console.log(words.filter(function (el) { //trim and split with spaces on the text
-                    return (el != "")   //keep item of the array only if not empty string
-                }))
                 this.separatorsListIfTotalWordsAdvanced = 'all not words chars, except \'_\' and \'-\''
+
+                //Check that content.length respect this.maxCharsToCheck
+                if (this.maxCharsToCheck >= this.content.length) {
+                    this.maxCharsToCheckInfo = "Respected !"
+                } else {
+                    this.maxCharsToCheckInfo = "Exceeded !"
+                }
             }
         },
         mounted() {
