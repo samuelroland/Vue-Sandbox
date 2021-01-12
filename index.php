@@ -9,17 +9,20 @@
 </head>
 <body>
 <h1>Home page of Vue-Sandbox Repository</h1>
+<?php if (file_exists("favicon.ico") == true) { ?>
+    <img src="favicon.ico" alt="favicon" style="height: 100px">
+<?php } ?>
 <h2>Choose an exercice under:</h2>
 <div style="font-size: 1.5em">
-    <?php
-    $excludedFilesOrFolder = [".git", ".idea", "index.php", ".gitignore", "README.md"];
-    $files = scandir('.');
-    foreach ($files as $file) { //foreach files in the document root folder
-        if ($file != '.' && $file != '..' && in_array($file, $excludedFilesOrFolder) == false) {
-            echo "<a href='" . "/" . $file . "'> " . $file . "</a>" . '<br>';
-        }
-    }
-    ?>
+   <?php
+   $excludedFilesOrFolder = [".git", ".idea", "index.php", ".gitignore", "README.md", "favicon.ico", "node_modules"];
+   $files = scandir('.');
+   foreach ($files as $file) { //foreach files in the document root folder
+      if ($file != '.' && $file != '..' && in_array($file, $excludedFilesOrFolder) == false) {
+         echo "<a href='" . "/" . $file . "/'> " . $file . "</a>" . '<br>';
+      }
+   }
+   ?>
 </div>
 </body>
 </html>

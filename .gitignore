@@ -3,3 +3,6 @@
 *.key
 *.tmp
 *.asc
+
+node_modules
+package-lock.json
