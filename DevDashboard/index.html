@@ -21,12 +21,12 @@
         .inputerror {
             border: 2px double #ff7575;
         }
-        
+
         .nomargin {
             margin: 0px !important;
         }
 
-        .littlepadding{
+        .littlepadding {
             padding: 5px;
             border-radius: 5px;
         }
@@ -44,7 +44,7 @@
             max-width: 50%;
             height: 350px;
             margin: 3px;
-            overflow: hidden;
+            overflow: visible;
         }
 
         #divWikipedia {
@@ -54,8 +54,9 @@
 
         #divStringsStats {
             min-width: 600px;
-            min-height: 300px;
+            /*min-height: 300px;*/
         }
+
         #divDeeplTranslate {
             min-width: 450px;
             min-height: 300px;
@@ -95,6 +96,10 @@
 
         .flexwrap {
             flex-wrap: wrap;
+        }
+
+        .widthmozavailable {
+            width: -moz-available;
         }
     </style>
     <script src="node_modules/vue/dist/vue.global.js"></script>
@@ -136,11 +141,10 @@
 <body>
 <div id="bodyApp">
     <div id="divAppTitle">
-        <h1 style="display: inline" class="hTitle">DevDashboard</h1> <em>v{{ appVersion }}</em> <br>by
-        <strong>{{ authorFullname }}</strong>
-        <h3>Welcome to DevDashboard, an always evolving dashboard with widgets, <br>that help you develop apps in ways
-            you
-            didn't thought.</h3>
+        <h1 style="display: inline" class="hTitle">DevDashboard</h1> <em
+            v-bind:title="'Released the ' + appVersionDate"><code style="font-size: 1.2em">v{{ appVersion }}</code></em>
+        <h3>{{ appDescription }}</h3>
+        by <strong><code style="font-size: 1.2em">{{ authorFullname }}</code></strong>
         <p>Developed with the javascript framework <a href="https://v3.vuejs.org/guide">VueJS</a> 3...</p>
         <hr>
     </div>
@@ -152,7 +156,7 @@
             <textarea v-bind:class="txtCssClasses" id="txtarea" rows="5"
                       placeholder="Paste your string here..."
                       v-model="content" v-on:input="calculateAllStats">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo ratione sint voluptates.Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam, repudiandae!</textarea>
+            </textarea>
             <ul>
                 <li>{{ totalChars }} chars</li>
                 <li>{{ totalWords }} words (only ' ' as separator)</li>
@@ -161,10 +165,19 @@
                 <li><input type="text" placeholder="set a max" value="100" v-model="maxCharsToCheck"> chars at max.
                     <span
                             class="txtgreen">{{ maxCharsToCheckInfo }}</span></li>
-                <li><input type="text" placeholder="search a substring"> found X times</li>
+                <li><input type="text" placeholder="search a substring" v-model="substringToSearch"> found
+                    {{ nbTimesSubstringFound }} times
+                </li>
                 <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex">
                     matched X
                     times
+                </li>
+                <li>Words founds:
+                    <ol>
+                        <li v-for="word in this.words">
+                            {{ word }}
+                        </li>
+                    </ol>
                 </li>
             </ul>
         </div>
@@ -189,7 +202,7 @@
                 <option value="en">English</option>
                 <option value="en">German</option>
             </select>
-            <textarea cols="50" rows="6" placeholder="Write your text here:
+            <textarea class="widthmozavailable" cols="50" rows="6" placeholder="Write your text here:
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam! "></textarea>
             <p></p>
@@ -215,7 +228,9 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
     const DevD = {
         data() {
             return {
-                appVersion: "1.0",
+                appDescription: "An evolving dashboard with widgets that help you develop apps with lots of external tools collected and personalized in one web page.",
+                appVersion: "0.2",
+                appVersionDate: "01.01.2021",
                 authorFullname: "Samuel Roland",
             }
         }
@@ -226,6 +241,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
         data() {
             return {
                 content: "",
+                words: [],
                 totalChars: 0,
                 totalWords: 0,
                 totalWordsAdvanced: 0,
@@ -240,7 +256,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
                 nbMatchesForRegex: 0,
                 //Css:
                 txtCssAddings: "",
-                txtCssClasses: "fullwidth " + this.txtCssAddings
+                txtCssClasses: "widthmozavailable " + this.txtCssAddings
             }
         },
         methods: {
@@ -251,16 +267,18 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
                 //Calculate this.totalWords
                 //Thanks to: https://stackoverflow.com/questions/19313541/split-a-string-based-on-multiple-delimiters#answer-19313673
                 separators = [" "]
-                words = text.trim().split(new RegExp('[' + separators.join('') + ']', 'g'));
-                this.totalWords = words.filter(function (el) { //trim and split with spaces on the text
+                this.words = text.trim().split(new RegExp('[' + separators.join('') + ']', 'g'));
+                this.words = this.words.filter(function (el) { //trim and split with spaces on the text
                     return (el != "")   //keep item of the array only if not empty string
-                }).length
+                })
+                this.totalWords = this.words.length
                 //Trim with all non words chars to count advanced words (more separators):
-                words = text.trim().split(e = new RegExp("[-_](?!\\w)|[-_](?<!\\w\\W)|[^\\w-_]"));  //split with "hard" regex to take all non words chars except - and _ if char before and after are words chars.
+                this.words = text.trim().split(e = new RegExp("[-_](?!\\w)|[-_](?<!\\w\\W)|[^\\w-_]"));  //split with "hard" regex to take all non words chars except - and _ if char before and after are words chars.
                 console.log(e)
-                this.totalWordsAdvanced = words.filter(function (el) { //filter and remove empty values
+                this.words = this.words.filter(function (el) { //filter and remove empty values
                     return (el != "")   //keep item of the array only if not empty string
-                }).length
+                })
+                this.totalWordsAdvanced = this.words.length
                 this.separatorsListIfTotalWordsAdvanced = 'all not words chars, except \'_\' and \'-\''
 
                 //Check that content.length respect this.maxCharsToCheck
@@ -271,6 +289,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
                     this.maxCharsToCheckInfo = "Exceeded !"
                     this.manageErrorCssOnTextarea(true)
                 }
+
+                //Count occurrences of a string:
+                //this.nbTimesSubstringFound = this.allIndexOf(this.content, this.substringToSearch).length
+
             },
             //Display or hide error css on text area
             manageErrorCssOnTextarea(display = true) {
@@ -282,8 +304,19 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
                 this.loadTxtCssClasses()
             },
             loadTxtCssClasses() {   //load the txtCssClasses variable after modification of txtCssAddings
-                this.txtCssClasses = "fullwidth " + this.txtCssAddings
-            }
+                this.txtCssClasses = "widthmozavailable " + this.txtCssAddings
+            },
+            ////Thanks to: https://stackoverflow.com/questions/3365902/search-for-all-instances-of-a-string-inside-a-string#answer-20968478
+            //allIndexOf(str, toSearch) { //Get an array of all the position of a substring in a string
+            //    if (str == null || toSearch == null) {
+            //        return 0
+            //    }
+            //    indices = [];
+            //    for (pos = str.indexOf(toSearch); pos !== -1; pos = str.indexOf(toSearch, pos + 1)) {
+            //        indices.push(pos);
+            //    }
+            //    return indices;
+            //}
         },
         mounted() {
             this.calculateAllStats()
