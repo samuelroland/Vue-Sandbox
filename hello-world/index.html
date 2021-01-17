@@ -41,10 +41,21 @@
            v-on:mouseout="cssForErrorInfoOnHover">Display error: </label><input id="chkError" type="checkbox"
                                                                                 v-model="errorVisible">
     <p class="bgred" v-if="errorVisible">There is an error :( ...</p>
-
 </div>
 
+<div id="strangeTitle">
+<div v-html="titleInHTML"></div>
+</div>
 <script>
+    const strangeTitle = {
+        data() {
+            return {
+                titleInHTML: "<h3>Hey this is a title h3 (raw html inserted)</h3>"
+            }
+        }
+    }
+    Vue.createApp(strangeTitle).mount("#strangeTitle")
+
     const fixMsg = {
         data() {
             return {
@@ -58,9 +69,6 @@
         }
     }
     Vue.createApp(fixMsg).mount("#fixMsg")
-</script>
-<script>
-
 
     /*Vue code here*/
     const Message = {
