@@ -29,17 +29,39 @@
     <script src="https://unpkg.com/vue@next">//Import Vue here !</script>
 </head>
 <body>
+<div id="fixMsg">
+    <p>This is a normal msg: <span class="bgorange">{{ msgText }}</span></p>
+    <p v-once>This is the same message "msgText" but fixed because of v-once <br>
+        (it will not change!): <span class="bgorange">{{ msgText }}</span></p>
+</div>
 <div id="msg">
     <p v-bind:class="cssForMsg" v-on:click="clickMsg">Simon says {{ message }}</p>
     <textarea rows="5" cols="100" v-model="message" v-bind:title="message"></textarea><br>
     <label for="chkError" v-bind:class="cssForErrorInfo" v-on:mouseover="cssForErrorInfoOnHover"
            v-on:mouseout="cssForErrorInfoOnHover">Display error: </label><input id="chkError" type="checkbox"
-                                                                                 v-model="errorVisible">
+                                                                                v-model="errorVisible">
     <p class="bgred" v-if="errorVisible">There is an error :( ...</p>
 
 </div>
 
 <script>
+    const fixMsg = {
+        data() {
+            return {
+                msgText: "Hey you !"
+            }
+        },
+        mounted() {
+            setInterval(() => {
+                this.msgText = "I can change !"
+            }, 1000)
+        }
+    }
+    Vue.createApp(fixMsg).mount("#fixMsg")
+</script>
+<script>
+
+
     /*Vue code here*/
     const Message = {
         data() {
