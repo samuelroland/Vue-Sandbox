@@ -41,7 +41,6 @@
             padding: 10px;
             border-radius: 5px;
             width: min-content;
-            max-width: 50%;
             height: 350px;
             margin: 3px;
             overflow: visible;
@@ -60,6 +59,11 @@
         #divDeeplTranslate {
             min-width: 450px;
             min-height: 300px;
+        }
+
+        #githubToday {
+            min-width: 450px;
+            max-height: 150px;
         }
 
         .hTitle {
@@ -221,6 +225,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
             </span>
             </div>
         </div>
+        <div id="githubToday" class="divRectangle">
+            <div class="flexdiv">
+                <h2>GitHub today contributions</h2>
+                <span>{{ dateOfToday }}</span>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -322,9 +332,24 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
             this.calculateAllStats()
         }
     }
+
+    const githubToday = {
+        data() {
+            return {
+                dateOfToday: "date of today",
+                nbOfCommits: null,
+                reposContributed: null
+            }
+        },
+        mounted() {
+            timestamp = new Date()
+            this.dateOfToday = timestamp.getDay() + "-" + (timestamp.getUTCMonth() + 1) + "-" + timestamp.getFullYear()
+        }
+    }
+
     Vue.createApp(DevD).mount('#divAppTitle')
     Vue.createApp(widgStringsStats).mount('#divStringsStats')
-
+    Vue.createApp(githubToday).mount("#githubToday")
 </script>
 </body>
 

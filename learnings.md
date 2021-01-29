@@ -1,4 +1,4 @@
-## What do I have learned ?
+## What did I have learn ?
 
 - component basic creation
 - v-if
