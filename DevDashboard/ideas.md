@@ -1,0 +1,23 @@
+## Ideas to implement if useful:
+- Stats on a given string (how many chars, the string with a limit of chars applied, search a substring and get occurrences, )
+- Fetch IceScrum API to have total time spent on a given project and calculate time spent for the current day (if possible).
+- Fetch IceScrum API to design a progress bar with provided effort on total effort (all stories from backlog, in run and done) and with generated value on total value. With a marker at each story done (with the name of the story on hover in a tooltip) on the progress bar, with start and end dates, sprints and releases. The stories should be ordered by the order of completion.
+- Fetch IceScrum API to recreate timesheet app with more information
+- Fetch first paragraph of a wikipedia page to get a quick definition of a word (propose different solutions if not found directly)
+- Fetch definition of dictionary of a word (with larousse.fr for ex.)
+- Encode or decode string in base64 format (include a js library for it)
+- Fetch DeepL website to get the translations of a word in french translated to english
+- Fetch HackerNews API on hn.algolia.com/ like https://hn.algolia.com/api/v1/search?query=markdown to find the last article that get more than x points and that are related to at least of subject of a list
+- Fetch Github API for given repos (repos that your have starred for ex.) to get the last created issues with labels "good first issue")
+- Fetch PHP, VueJS, Laravel, (or others languages) official documentation, search a function, class, ... display personal notes in MD from a file.)
+- Save current links for dev with a custom order, and open them easily.
+- Search free copyleft icons for apps and download them in one folder of a list (folder depending on the current project)
+- Display and hide widgets depending on the project chosen (some widgets are useful for one project and others are not). Configurations are saved.)
+- Show shortcuts of the app on alt key. Tab key go to the next widget (autofocus to the default input).
+- Write little notes about the state of the code WIP if the functionality is not done.
+- Fetch API of IceScrum to get tasks of a project with the color different of yellow, and prioritize them.
+- Fetch API of GitHub to get contributions information on one repos (contributors list, commits total and commits of the day, created issues, pull requests managed, number of comments, code review, ...)
+- Fetch API of GitHub to recreate contributions table like on github profil page
+- Fetch API of Stackoverflow to search articles, get the upvoted solutions (with more than x upvotes) and display them.
+- Fetch API of any type, set headers, display the response, link builder with a lot of values in the querystring
+- Display a given web page with minimal content and design (like reading mode of Firefox) with text and images and basic style.
