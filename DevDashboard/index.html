@@ -5,6 +5,7 @@
     <title>DevDashboard</title>
     <link rel="stylesheet" href="style.css">
     <script src="node_modules/vue/dist/vue.global.js"></script>
+    <script src="cred.js"></script>
 </head>
 <!--
 /**
@@ -103,11 +104,32 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
         <div id="githubToday" class="divRectangle">
             <div class="flexdiv">
                 <h2>GitHub today contributions</h2>
-                <span>{{ dateOfToday }}</span>
+                <!--<div>{{ dateOfToday }}</div>-->
+            </div>
+        </div>
+        <div id="githubReposInfo" class="divRectangle">
+            <h2>Repos information</h2>
+            <input type="text" placeholder="author/repos" v-model="reposId">
+            <button v-on:click="loadInformation">Search</button>
+            <div class="flexdiv">
+                <div class="flex-1">
+                    <div>Stars: {{ nbStars }}</div>
+                    <div>Commits: {{ nbCommits }}</div>
+                    <div>Last release: <br>{{ lastReleaseName }}</div>
+                </div>
+                <div class="flexdiv ">
+                    <div class="p-2">
+                        <img class="avatar-img" v-bind:src="imgOwnerSrc" v-if="isLoaded"
+                             alt="image of the repos owner">
+                    </div>
+                    <div class="p-2">
+                        <div>Owner: {{ ownerFullname }}</div>
+                        <div>Bio: {{ ownerBio }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

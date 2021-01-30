@@ -60,6 +60,11 @@ body {
     max-height: 150px;
 }
 
+#githubReposInfo {
+    min-width: 450px;
+    max-height: 150px;
+}
+
 .hTitle {
     font-size: 2.5rem;
 }
@@ -98,4 +103,16 @@ input {
 
 .widthmozavailable {
     width: -moz-available;
+}
+
+.avatar-img {
+    height: 50px;
+}
+
+.p-2 {
+    padding: 5px;
+}
+
+.flex-1 {
+    flex: 1;
 }

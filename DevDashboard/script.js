@@ -110,6 +110,68 @@ const githubToday = {
         this.dateOfToday = timestamp.getDay() + "-" + (timestamp.getUTCMonth() + 1) + "-" + timestamp.getFullYear()
     }
 }
+
+const githubReposInfo = {
+    data() {
+        return {
+            isLoaded: false,
+            reposId: "samuelroland/KanFF",
+            nbStars: 0,
+            nbCommits: 0,
+            lastReleaseName: "",
+            imgOwnerSrc: "",
+            ownerFullname: "",
+            ownerBio: ""
+        }
+    },
+    methods: {
+        async loadInformation() {
+            httpAddedInformation = {
+                headers: {
+                    "Authorization": "token " + githubApiToken2
+                }
+            }
+            url1 = "https://api.github.com/repos/" + this.reposId
+            fetch(url1, httpAddedInformation)  //basic information on the repos
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
+                    data = JSON.parse(data)
+                    console.log(data)
+                    this.nbStars = data.stargazers_count
+                    this.ownerFullname = data.owner.login
+
+                    this.imgOwnerSrc = data.owner.avatar_url
+                });
+
+            url2 = "https://api.github.com/repos/" + this.reposId + "/releases"
+            fetch(url2, httpAddedInformation)  //information about the release
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
+                    data = JSON.parse(data)
+                    console.log("asfd")
+                    console.log(data)
+                    lastReleaseDate = new Date(data[0].published_at)
+                    lastReleaseDate = dateformat(lastReleaseDate, "d.m.Y")
+                    this.lastReleaseName = data[0].tag_name + " le " + lastReleaseDate
+                });
+
+            this.isLoaded = true
+        }
+    }
+}
+
+function dateformat(date, format) {
+    format = format.replace("Y", date.getFullYear())
+    format = format.replace("m", date.getMonth() + 1)
+    format = format.replace("d", date.getDate())
+    return format
+}
+
 Vue.createApp(DevD).mount('#divAppTitle')
 Vue.createApp(widgStringsStats).mount('#divStringsStats')
 Vue.createApp(githubToday).mount("#githubToday")
+Vue.createApp(githubReposInfo).mount("#githubReposInfo")
