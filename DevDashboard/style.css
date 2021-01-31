@@ -61,7 +61,7 @@ body {
 }
 
 #githubReposInfo {
-    min-width: 450px;
+    width: max-content;
     max-height: 150px;
 }
 

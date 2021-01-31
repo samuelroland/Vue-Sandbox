@@ -118,9 +118,11 @@ const githubReposInfo = {
             reposId: "samuelroland/KanFF",
             nbStars: 0,
             nbCommits: 0,
+            releaseFound: false,
             lastReleaseName: "",
             imgOwnerSrc: "",
             ownerFullname: "",
+            ownerUsername: "",
             ownerBio: ""
         }
     },
@@ -132,7 +134,7 @@ const githubReposInfo = {
                 }
             }
             url1 = "https://api.github.com/repos/" + this.reposId
-            fetch(url1, httpAddedInformation)  //basic information on the repos
+            await fetch(url1, httpAddedInformation)  //basic information on the repos
                 .then((response) => {
                     return response.text();
                 })
@@ -140,23 +142,39 @@ const githubReposInfo = {
                     data = JSON.parse(data)
                     console.log(data)
                     this.nbStars = data.stargazers_count
-                    this.ownerFullname = data.owner.login
+                    this.ownerUsername = data.owner.login
 
                     this.imgOwnerSrc = data.owner.avatar_url
                 });
 
             url2 = "https://api.github.com/repos/" + this.reposId + "/releases"
-            fetch(url2, httpAddedInformation)  //information about the release
+            await fetch(url2, httpAddedInformation)  //information about the release
                 .then((response) => {
                     return response.text();
                 })
                 .then((data) => {
                     data = JSON.parse(data)
-                    console.log("asfd")
                     console.log(data)
-                    lastReleaseDate = new Date(data[0].published_at)
-                    lastReleaseDate = dateformat(lastReleaseDate, "d.m.Y")
-                    this.lastReleaseName = data[0].tag_name + " le " + lastReleaseDate
+                    if (data[0] != null) {
+                        lastReleaseDate = new Date(data[0].published_at)
+                        lastReleaseDate = dateformat(lastReleaseDate, "d.m.Y")
+                        this.lastReleaseName = data[0].tag_name + " le " + lastReleaseDate
+                        this.releaseFound = true
+                    } else {
+                        this.releaseFound = false
+                    }
+                });
+
+            url3 = "https://api.github.com/users/" + this.reposId.substr(0, this.reposId.indexOf("/"))
+            await fetch(url3, httpAddedInformation)  //information about the release
+                .then((response) => {
+                    return response.text();
+                })
+                .then((data) => {
+                    data = JSON.parse(data)
+                    console.log(data)
+                    this.ownerBio = data.bio
+                    this.ownerFullname = data.name
                 });
 
             this.isLoaded = true

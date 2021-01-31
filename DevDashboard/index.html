@@ -115,7 +115,7 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
                 <div class="flex-1">
                     <div>Stars: {{ nbStars }}</div>
                     <div>Commits: {{ nbCommits }}</div>
-                    <div>Last release: <br>{{ lastReleaseName }}</div>
+                    <div v-if="releaseFound">Last release: <br>{{ lastReleaseName }}</div>
                 </div>
                 <div class="flexdiv ">
                     <div class="p-2">
@@ -123,8 +123,8 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
                              alt="image of the repos owner">
                     </div>
                     <div class="p-2">
-                        <div>Owner: {{ ownerFullname }}</div>
-                        <div>Bio: {{ ownerBio }}</div>
+                        <div>Owner: {{ ownerFullname }} - {{ ownerUsername }}</div>
+                        <div>Bio: <em>{{ ownerBio }}</em></div>
                     </div>
                 </div>
             </div>
