@@ -189,7 +189,7 @@ const githubReposInfo = {
         },
         isReposIdValid() {
             text = this.reposId
-            regex = "^[A-z_\\-.]{1,}\\/[A-z_\\-.]{1,}$"
+            regex = "^[A-z0-9\-]{1,}\\/[A-z0-9_\\-.]{1,}$"
             console.log(regex)
             console.log(text)
             tester = new RegExp(regex)
