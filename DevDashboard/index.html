@@ -109,10 +109,13 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius
         </div>
         <div id="githubReposInfo" class="divRectangle">
             <h2>Repos information</h2>
-            <input type="text" placeholder="author/repos" v-model="reposId">
+            <input type="text" placeholder="author/repos" v-model="reposId" v-on:input="isReposIdValid">
             <button v-on:click="loadInformation">Search</button>
+            <button v-on:click="goToReposOnGithub" v-bind:disabled="isReposIdValidState">Go to Repos</button>
+            <button v-on:click="goToOwnerOnGithub" v-bind:disabled="isReposIdValidState">Go to Owner</button>
             <div class="flexdiv">
                 <div class="flex-1">
+                    <div>Description: <em>{{ description }}</em></div>
                     <div>Stars: {{ nbStars }}</div>
                     <div>Commits: {{ nbCommits }}</div>
                     <div v-if="releaseFound">Last release: <br>{{ lastReleaseName }}</div>

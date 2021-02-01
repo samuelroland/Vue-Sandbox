@@ -116,6 +116,8 @@ const githubReposInfo = {
         return {
             isLoaded: false,
             reposId: "samuelroland/KanFF",
+            isReposIdValidState: false,
+            description: "",
             nbStars: 0,
             nbCommits: 0,
             releaseFound: false,
@@ -143,7 +145,7 @@ const githubReposInfo = {
                     console.log(data)
                     this.nbStars = data.stargazers_count
                     this.ownerUsername = data.owner.login
-
+                    this.description = data.description
                     this.imgOwnerSrc = data.owner.avatar_url
                 });
 
@@ -178,6 +180,23 @@ const githubReposInfo = {
                 });
 
             this.isLoaded = true
+        },
+        goToReposOnGithub() {
+            window.open("https://github.com/" + this.reposId, "_blank")
+        },
+        goToOwnerOnGithub() {
+            window.open("https://github.com/" + this.reposId.substr(0, this.reposId.indexOf("/")), "_blank")
+        },
+        isReposIdValid() {
+            text = this.reposId
+            regex = "^[A-z_\\-.]{1,}\\/[A-z_\\-.]{1,}$"
+            console.log(regex)
+            console.log(text)
+            tester = new RegExp(regex)
+            console.log(tester)
+            console.log(regex)
+            console.log(text)
+            this.isReposIdValidState = !tester.test(text)
         }
     }
 }
