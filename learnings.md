@@ -94,11 +94,47 @@ We can chain the if...else too (with using `v-else-if`).
 ```
 
 ### List rendering
+To display element of an array in a list (`<ul>` and `<li>`), we need a new attribute called `v-for`.
 
+In JS:
+```javascript
+const app = Vue.createApp({
+  data() {
+    return {
+      details: ["50% cotton", "30% wool", "20% polyester"],
+      variants: [
+        { id: 2234, color: "green" },
+        { id: 2235, color: "blue" },
+      ],
+    };
+  },
+});
+```
 
+In html, for **a simple for loop**:
+```html
+<ul>
+<li v-for="detail in details">{{ detail }}</li>
+</ul>
+```
 
+In html, with **multiples dimensions arrays**:
+The key attribute is only for Vue and will be useful later (for animation).
+```html
+<div v-for="variant in variants" :key="variant.id">{{ variant.color }}</div>
+```
+
+In html, with **automatic indexes**.
+```html
+<ul>
+  <li v-for="(size, index) in sizes" :key="index">{{ size }}</li>
+</ul>
+```
+
+## Resume of the memento
 - component basic creation
-- v-if
+- component structure
+- v-if / v-showß
 - v-model
 - v-for
 - {{ message }} = value in the DOM binded with a property
