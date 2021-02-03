@@ -212,6 +212,47 @@ btnstyles: {
 }
 ```
 
+## Computed properties
+Computed properties are calculated properties calculated with other data (ex: a combination of properties)
+
+Instead of writing: `<p>{{ brand + product}} </p>`
+we can write `<p>{{ sentenceOnSale }}</p>` and a new method under `computed` part (the part for all computed properties):
+
+```javascript
+const app = Vue.createApp({
+  data() {
+    return {
+      product: "Socks",
+      brand: "Vue Mastery"
+    };
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1;
+    }
+  },
+  computed: {
+    sentenceOnSale() {
+      if (this.onSale == true) {
+        return this.brand + " " + this.product + " are on sale.";
+      }
+    },
+  },
+});
+```
+
+It can be really shorter if the property is a boolean value that result from a complex calculation and that is use to enable/disable or display/hide an element (for example).
+
+```javascript
+inStock() {
+  return this.variants[this.selectedVariantIndex].quantity > 0;
+},
+```
+=> We don't need to write this long line again like `v-if="this.variants[this.selectedVariantIndex].quantity > 0"`.
+
+
+??part==option ??
+
 ## Resume of the memento
 - component basic creation
 - component structure
