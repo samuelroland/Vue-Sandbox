@@ -131,10 +131,91 @@ In html, with **automatic indexes**.
 </ul>
 ```
 
+### Events handling
+We can handle events with directive `v-on`. We can declare events listener like this (and directly include a JS expression):
+```html
+<button class="button" v-on:click="cart += 1">Add to Cart</button>
+```
+
+Or with a method called addToCart() written in `methods` array: 
+```html
+<button class="button" v-on:click="addToCart">Add to Cart</button>
+```
+
+```javascript
+const app = Vue.createApp({
+  data() {
+    return {
+      cart: 0
+    };
+  },
+  methods: {
+    addToCart() {
+      this.cart += 1;
+    },
+  },
+});
+```
+
+We can call methods with parameters:
+
+```html
+<div v-for="variant in variants" :key="variant.id" v-on:mouseover="updateImage(variant.image)">{{ variant.color }}</div>
+```
+
+```javascript
+methods: {
+  addToCart() {
+    this.cart += 1;
+  },
+  updateImage(variantImage) {
+    this.image = variantImage;
+  },
+},
+```
+
+### Shorthand for v-on
+`v-on` is super common, so it exists a shorthand `@`: <div v-on:click="addToCart"></div> => <div @click="addToCart"></div>
+
+### Class and style binding
+First, if we declare a class and a binded class, the 2 will be merged. (But it's not possible to bind several times the same attribute (doing :class 2 times)).
+`<button class="button" :class="[inStock ? '' : 'disabledButton']">Add</button>`.
+
+`:class` can take a "class object" that is a list of boolean values with classes names as keys. These boolean values can be properties so the classes enabling can easily change during the app run.
+Example:
+```javascript
+btnclasses: {
+  active: isActived,
+  bgred: false,
+  grey: true,
+}
+```
+
+`<div :class="btnclasses"></div>` then if isActived=true => `<div class="active grey"></div>`
+
+
+
+`:style` can take a "style object" with the different styles to apply on the element written in javascript (camel case without dashes, like when typing `element.style.X`). (Here `chosenColor` is a property with "red" as value).
+```javascript
+btnstyles: {
+  backgroundColor: chosenColor,
+  fontSize: "purple"
+}
+```
+=> Vue will render it like `<div style="background-color: red; font-size: purple;"></div>
+
+It's possible to use it directly with css rules naming with quotes:
+```javascript
+btnstyles: {
+  'background-color': chosenColor,
+  'font-size': "purple"
+}
+```
+
 ## Resume of the memento
 - component basic creation
 - component structure
-- v-if / v-showß
+- v-if / v-show
 - v-model
 - v-for
 - {{ message }} = value in the DOM binded with a property
