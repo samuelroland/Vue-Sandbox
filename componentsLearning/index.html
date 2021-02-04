@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Components learning</title>
+    <script src="https://unpkg.com/vue@next"></script>
+    <style>
+        .circle {
+            border-radius: 50%;
+            width: min-content;
+            padding: 6px;
+            min-width: 20px;
+            min-height: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <h1>Components learning</h1>
+        <div id="components">
+            <circle-template bgcolor="lightblue" content="saltu"></circle-template>
+            <button-template btnname="Go Qwant" link="https://qwant.com"></button-template>
+            <button-template btnname="Go RTS official" link="https://rts.ch"></button-template>
+            <circle-template bgcolor="#33a293" content="add"></circle-template>
+        </div>
+    </div> 
+
+    <!-- JS files -->
+    <script src="script.js"></script>
+    <script src="components/ButtonTemplate.js"></script>
+    <script src="components/CircleTemplate.js"></script>
+
+    <script>const mountedApp = app.mount("#app")</script>
+</body>
+</html>

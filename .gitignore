@@ -8,3 +8,4 @@ node_modules
 package-lock.json
 
 cred.js
+.DS_Store
