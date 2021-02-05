@@ -253,6 +253,11 @@ inStock() {
 
 ??part==option ??
 
+## Components and props
+To make our code for the product reusable, we are going to create a component "product-detail" to be able to use it as `<product-display></product-display>` in our HTML.
+
+The components scripts must be loaded before the mounting of the app.
+
 ## Resume of the memento
 - component basic creation
 - component structure
