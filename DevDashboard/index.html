@@ -1,138 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>DevDashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="node_modules/vue/dist/vue.global.js"></script>
     <script src="cred.js"></script>
-</head>
-<!--
-/**
- *  Project: DevDashboard
- *  Goal: Provide a dashboard for developing with different widgets integrated, like little tools for string stats, translater, API fetcher, ...
- *  File: index.html: main file with all widgets
- *  Techno: no pure JS, only VueJS
- *  Author: Samuel Roland
- *  Creation date: 01.01.2020
- */
--->
-<body>
-<div id="bodyApp">
-    <div id="divAppTitle">
-        <h1 style="display: inline" class="hTitle">DevDashboard</h1> <em
-            v-bind:title="'Released the ' + appVersionDate"><code style="font-size: 1.2em">v{{ appVersion }}</code></em>
-
-        <br>by <strong><code style="font-size: 1.2em">{{ authorFullname }}</code></strong>
-        <span style="margin-left: 50px">Developed with <a href="https://v3.vuejs.org/guide">VueJS</a> 3...</span>
+  </head>
+  <!--
+    /**
+     *  Project: DevDashboard
+     *  Goal: Provide a dashboard for developing with different widgets integrated, like little tools for string stats, translater, API fetcher, ...
+     *  File: index.html: main file with all widgets
+     *  Techno: no pure JS, only VueJS
+     *  Author: Samuel Roland
+     *  Creation date: 01.01.2020
+     */
+  -->
+  <body>
+    <div id="bodyApp">
+      <div>
+        <h1 style="display: inline" class="hTitle">DevDashboard</h1>
+        <em v-bind:title="'Released the ' + appVersionDate">
+          <code style="font-size: 1.2em">v{{ appVersion }}</code>
+        </em>
+        <br />by
+        <strong>
+          <code style="font-size: 1.2em">{{ authorFullname }}</code>
+        </strong>
+        <span style="margin-left: 50px"
+          >Developed with
+          <a href="https://v3.vuejs.org/guide">VueJS</a> 3...</span
+        >
         <h3>{{ appDescription }}</h3>
-        <hr>
-    </div>
-    <div id="divWidgets">
-
-        <div id="divStringsStats" class="divRectangle">
-            <h2>Strings stats</h2>
-            <label for="txtarea"></label>
-            <textarea v-bind:class="txtCssClasses" id="txtarea" rows="5"
-                      placeholder="Paste your string here..."
-                      v-model="content" v-on:input="calculateAllStats">
-            </textarea>
-            <ul>
-                <li>{{ totalChars }} chars</li>
-                <li>{{ totalWords }} words (only ' ' as separator)</li>
-                <li>{{ totalWordsAdvanced }} words advanced (separators: {{ separatorsListIfTotalWordsAdvanced }})</li>
-                <li>Most used word is: X</li>
-                <li><input type="text" placeholder="set a max" v-model="maxCharsToCheck"> chars at max.
-                    <span
-                            class="txtgreen">{{ maxCharsToCheckInfo }}</span></li>
-                <li><input type="text" placeholder="search a substring" v-model="substringToSearch"> found
-                    {{ nbTimesSubstringFound }} times
-                </li>
-                <li><input type="checkbox"> <label>Words? </label><input type="text" placeholder="Match a Regex">
-                    matched X
-                    times
-                </li>
-                <li>Words founds:
-                    <ol>
-                        <li v-for="word in this.words">
-                            {{ word }}
-                        </li>
-                    </ol>
-                </li>
-            </ul>
-        </div>
-
-        <div id="divWikipedia" class="divRectangle">
-            <h2>Wikipedia Search</h2>
-            <p><input type="text" placeholder="Pick a word">
-                <button>Search it!</button>
-                <button>Go on the page X</button>
-            </p>
-            <h3>Result:</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo
-                sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam!
-            </p>
-        </div>
-
-        <div id="divDeeplTranslate" class="divRectangle">
-            <h2>DeepL Translate</h2>
-            <label for="sltLanguageSource">Source language</label>
-            <select id="sltLanguageSource">
-                <option value="fr">French</option>
-                <option value="en">English</option>
-                <option value="en">German</option>
-            </select>
-            <textarea class="widthmozavailable" cols="50" rows="6" placeholder="Write your text here:
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam! "></textarea>
-            <p></p>
-            <h3 class="nomargin">Result:</h3>
-            <label for="sltLanguageDestination">Destination language</label>
-            <select id="sltLanguageDestination">
-                <option value="fr">French</option>
-                <option value="en">English</option>
-                <option value="en">German</option>
-            </select>
-            <br>
-            <div class="thinBlueBorder littlepadding">
-            <span>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet animi dolore eius excepturi optio quo
-                sint voluptates. Architecto asperiores cupiditate dolore dolores esse facilis ipsa odit quam quibusdam!
-            </span>
-            </div>
-        </div>
-        <div id="githubToday" class="divRectangle">
-            <div class="flexdiv">
-                <h2>GitHub today contributions</h2>
-                <!--<div>{{ dateOfToday }}</div>-->
-            </div>
-        </div>
-        <div id="githubReposInfo" class="divRectangle">
-            <h2>Repos information</h2>
-            <input type="text" placeholder="author/repos" v-model="reposId" v-on:input="isReposIdValid">
-            <button v-on:click="loadInformation" v-bind:disabled="isReposIdValidState">Search</button>
-            <button v-on:click="goToReposOnGithub" v-bind:disabled="isReposIdValidState">Go to Repos</button>
-            <button v-on:click="goToOwnerOnGithub" v-bind:disabled="isReposIdValidState">Go to Owner</button>
-            <div class="flexdiv">
-                <div class="flex-1">
-                    <div>Description: <em>{{ description }}</em></div>
-                    <div>Stars: {{ nbStars }}</div>
-                    <div>Commits: {{ nbCommits }}</div>
-                    <div v-if="releaseFound">Last release: <br>{{ lastReleaseName }}</div>
-                </div>
-                <div class="flexdiv ">
-                    <div class="p-2">
-                        <img class="avatar-img" v-bind:src="imgOwnerSrc" v-if="isLoaded"
-                             alt="image of the repos owner">
-                    </div>
-                    <div class="p-2">
-                        <div>Owner: {{ ownerFullname }} - {{ ownerUsername }}</div>
-                        <div>Bio: <em>{{ ownerBio }}</em></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <hr />
+      </div>
+      <div id="divWidgets">
+        <strings-stats></strings-stats>
+        <wikipedia-search></wikipedia-search>
+        <deepl-translation></deepl-translation>
+        <github-today></github-today>
+        <repos-info></repos-info>
+        <work-timer></work-timer>
+      </div>
     </div>
     <script src="script.js"></script>
-</body>
+    <script src="./components/DeepLTranslation.js"></script>
+    <script src="./components/GithubToday.js"></script>
+    <script src="./components/ReposInfo.js"></script>
+    <script src="./components/StringsStats.js"></script>
+    <script src="./components/WikipediaSearch.js"></script>
+    <script src="./components/WorkTimer.js"></script>
+    <script>
+      const mountedApp = DevD.mount("#bodyApp");
+    </script>
+  </body>
 </html>
