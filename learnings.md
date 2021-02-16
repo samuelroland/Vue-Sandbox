@@ -293,3 +293,20 @@ This is not CSS, but it's managed by postcss js files. So finally, tailwindcss i
 Explanation:
 NodeJS is different from apache that just return files inside the document root. ... WIP.
 A git repos has been setup too.
+
+## *.vue files
+Only work because are compiled by webpack. If we want to use our app without webpack, we can build it for production with `npm run build`. It will create a new folder named `dist`:
+
+    dist
+    ├── css
+    │   ├── app.6561460c.css
+    │   └── chunk-vendors.b80ae892.css
+    ├── favicon.ico
+    ├── index.html
+    └── js
+        ├── app.45caae6b.js
+        ├── app.45caae6b.js.map
+        ├── chunk-vendors.aad90810.js
+        └── chunk-vendors.aad90810.js.map
+
+The `app.6561460c.css` file contains the used tailwind classes only. (7Ko only)
