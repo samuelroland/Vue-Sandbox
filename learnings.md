@@ -269,3 +269,27 @@ The components scripts must be loaded before the mounting of the app.
 - v-on:<eventname> = start a method or execute code when event happens
 - v-once = binging only once (then binding is ignored)
 - v-html = interpolate raw html (binding ignored!)
+
+
+## VueJS project creation
+- Install Vue CLI
+- start `vue create frontend` to create a project in the `frontend` folder. Choose `Default (Vue 3 Preview) ([Vue 3] babel, eslint)` in the options.
+- `cd frontend`
+
+- `vue add tailwind` (install a plugin called `vue-cli-plugin-tailwind`) and choose a type of tailwind.config.js file (minimal by default) (package.json file will have new packages to install). In the `src/main.js` a line has been added `import './assets/tailwind.css'`. This file doesn't contain the library of class directly. (It contains:
+```css
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+```
+This is not CSS, but it's managed by postcss js files. So finally, tailwindcss is included. It's enough to include tailwindcss.
+
+- `npm install` to install the latest packages added to the package.json (from step before)
+- `npm run serve`: start the nodejs server
+- Open the given url `localhost:<port>` in the browser.
+
+Explanation:
+NodeJS is different from apache that just return files inside the document root. ... WIP.
+A git repos has been setup too.
